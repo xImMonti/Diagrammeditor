@@ -1,0 +1,170 @@
+@import '../node_modules/drawflow/dist/drawflow.min';
+@import "flowchart-base-style.css";
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* This file is for your main application CSS */
+
+/* @apply applies the tailwind classes to the element */
+
+/* Starting Point */
+.drawflow .flowchart__element-starting-point {
+    @apply bg-black p-0 h-12 w-12 rounded-full;
+}
+
+.drawflow .flowchart__element-starting-point .output_1 {
+    @apply right-1;
+}
+
+.drawflow .flowchart__element-starting-point .drawflow_content_node {
+    @apply relative;
+}
+
+.drawflow .flowchart__element-starting-point .drag-drawflow__label {
+    @apply -bottom-14 absolute -left-2.5;
+}
+
+.drawflow .flowchart__element-starting-point:hover {
+    @apply bg-black p-0 rounded-full;
+}
+
+.drawflow .flowchart__element-starting-point.selected {
+    @apply bg-black p-0 rounded-full;
+}
+
+/* Ending Point */
+.drawflow .flowchart__element-ending-point {
+    @apply bg-white p-0 h-12 w-12 rounded-full;
+}
+
+.drawflow .flowchart__element-ending-point::before {
+    content: " ";
+    @apply absolute w-4 h-4 rounded-full bg-black left-3.5 top-4;
+}
+
+.drawflow .flowchart__element-ending-point .input_1 {
+    @apply -left-2;
+}
+
+.drawflow .flowchart__element-ending-point .drawflow_content_node {
+    @apply relative;
+}
+
+.drawflow .flowchart__element-ending-point .drag-drawflow__label {
+    @apply -bottom-14 absolute -left-2;
+}
+
+.drawflow .flowchart__element-ending-point:hover {
+    @apply bg-white p-0 rounded-full;
+}
+
+.drawflow .flowchart__element-ending-point.selected {
+    @apply bg-white p-0 rounded-full;
+}
+
+/* UML and, UML or */
+.drawflow .flowchart__element-uml-and, .drawflow .flowchart__element-uml-or {
+    @apply bg-black w-1.5 h-44 ;
+}
+
+.drawflow .flowchart__element-uml-and:hover, .drawflow .flowchart__element-uml-or:hover {
+    @apply bg-black;
+}
+
+.drawflow .flowchart__element-uml-and.selected, .drawflow .flowchart__element-uml-or.selected {
+    @apply bg-black;
+}
+
+.drawflow .flowchart__element-uml-and .inputs .input_1 {
+    @apply -top-9 -left-2.5;
+}
+
+.drawflow .flowchart__element-uml-and .inputs .input_2 {
+    @apply top-9 -left-2.5;
+}
+
+.drawflow .flowchart__element-uml-and .outputs .output_1 {
+    @apply  -left-0.5;
+}
+
+.drawflow .flowchart__element-uml-or .inputs .input_1 {
+    @apply  -left-2;
+}
+
+.drawflow .flowchart__element-uml-or .outputs .output_1 {
+    @apply -top-9 left-0;
+}
+
+.drawflow .flowchart__element-uml-or .outputs .output_2 {
+    @apply top-9 left-0;
+}
+
+.drawflow .flowchart__element-uml-and .drag-drawflow__label, .drawflow .flowchart__element-uml-or .drag-drawflow__label {
+    @apply hidden;
+}
+
+/* UML if */
+
+.drawflow .flowchart__element-uml-if {
+    @apply rotate-45 h-20 w-20;
+}
+
+.drawflow .flowchart__element-uml-if .inputs {
+    @apply -rotate-90 h-12;
+}
+
+.drawflow .flowchart__element-uml-if .inputs .input_1{
+    left: -2.8rem;
+}
+
+.drawflow .flowchart__element-uml-if .outputs .output_1 {
+    left: -4.4rem;
+    top: -1.5rem;
+}
+
+.drawflow .flowchart__element-uml-if .outputs .output_2 {
+    @apply -top-10;
+}
+
+.drawflow .flowchart__element-uml-if .outputs .output_3 {
+    @apply top-7;
+}
+
+.drawflow .flowchart__element-uml-if .drag-drawflow__label {
+    @apply hidden;
+}
+
+/* Process */
+
+.drawflow .flowchart__element-process {
+    @apply w-52 py-3;
+}
+
+.drawflow .flowchart__element-process .drag-drawflow__content {
+    @apply h-36;
+}
+
+.drawflow .flowchart__element-process .drag-drawflow__label {
+    @apply hidden;
+}
+
+.drawflow .flowchart__element-process .inputs .input_1 {
+    left: -10px;
+}
+
+.drawflow .flowchart__element-process .outputs .output_1 {
+    @apply right-0;
+}
+
+/* The Content from the Drawflow Node should not be visible in the Sidebar */
+.flowchart__sidebar-element .drag-drawflow__content {
+    @apply hidden;
+}
+
+/* Node design */
+
+.drawflow .drawflow-node  {
+    @apply p-0;
+}
+

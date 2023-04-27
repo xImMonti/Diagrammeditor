@@ -1,0 +1,63 @@
+@startuml
+
+hide circle
+hide methods
+
+skinparam linetype ortho
+skinparam defaultFontName Roboto Mono
+skinparam shadowing false
+
+
+entity Diagrammeditor.Accounts.User {
+  id : id
+  --
+  email : string
+  hashed_password : string
+  confirmed_at : naive_datetime
+  inserted_at : naive_datetime
+  updated_at : naive_datetime
+}
+
+entity Diagrammeditor.Accounts.UserToken {
+  id : id
+  --
+  token : binary
+  context : string
+  sent_to : string
+  user_id : id
+  inserted_at : naive_datetime
+}
+
+entity Diagrammeditor.Processes.Process {
+  id : id
+  --
+  description : string
+  name : string
+  status : enum(empty,finished,in_progress)
+  flowchart : map
+  user_id : id
+  inserted_at : naive_datetime
+  updated_at : naive_datetime
+}
+
+entity Diagrammeditor.Processes.Step {
+  id : id
+  --
+  description : string
+  name : string
+  type : string
+  step_id : integer
+  process_id : id
+  inserted_at : naive_datetime
+  updated_at : naive_datetime
+}
+
+entity Ecto.Migration.SchemaMigration {
+  version : integer
+  inserted_at : naive_datetime
+}
+
+Diagrammeditor.Processes.Process ||--|{ Diagrammeditor.Processes.Step
+Diagrammeditor.Accounts.User ||--|{ Diagrammeditor.Processes.Process
+Diagrammeditor.Accounts.User ||--|{ Diagrammeditor.Accounts.UserToken
+@enduml

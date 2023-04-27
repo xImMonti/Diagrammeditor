@@ -1,0 +1,74 @@
+<header class="bg-white">
+  <div class="flex items-center justify-between border-b border-zinc-100 p-3">
+    <div class="flex-auto items-center ">
+      <.link href={~p"/processes"} class="flex items-center">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="text-brand w-6 h-6 mr-2"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="6" y1="3" x2="6" y2="15" /><circle cx="18" cy="6" r="3" /><circle
+            cx="6"
+            cy="18"
+            r="3"
+          /><path d="M18 9a9 9 0 0 1-9 9" />
+        </svg>
+        <span class="text-xl text-brand">Diagrammeditor</span>
+      </.link>
+    </div>
+    <div class="flex-shrink items-center gap-4">
+      <ul class="relative z-10 flex items-center gap-4 px-4 sm:px-6 lg:px-8 justify justify-end">
+        <%= if @current_user do %>
+          <li class="text-[0.8125rem] leading-6 text-zinc-900">
+            <%= @current_user.email %>
+          </li>
+          <li>
+            <.link
+              href={~p"/users/settings"}
+              class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-brand"
+            >
+              Settings <.icon name="hero-cog-8-tooth" class="w-4 h-4" />
+            </.link>
+          </li>
+          <li>
+            <.link
+              href={~p"/users/log_out"}
+              method="delete"
+              class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold text-brand"
+            >
+              Log out <.icon name="hero-arrow-left-on-rectangle" class="w-4 h-4" />
+            </.link>
+          </li>
+        <% else %>
+          <li>
+            <.link
+              href={~p"/users/register"}
+              class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-brand"
+            >
+              Register
+            </.link>
+          </li>
+          <li>
+            <.link
+              href={~p"/users/log_in"}
+              class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-brand"
+            >
+              Log in
+            </.link>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</header>
+<main class="">
+  <.flash_group flash={@flash} />
+  <%= @inner_content %>
+</main>

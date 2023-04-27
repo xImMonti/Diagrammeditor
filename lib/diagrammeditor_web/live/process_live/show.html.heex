@@ -1,0 +1,36 @@
+<.card>
+  <.header>
+    Process <%= @process.id %>
+    <:subtitle>This is a process record from your database.</:subtitle>
+    <:actions>
+      <.link patch={~p"/processes/#{@process}/show/edit"} phx-click={JS.push_focus()}>
+        <.button>Edit process</.button>
+      </.link>
+    </:actions>
+  </.header>
+
+  <.list>
+    <:item title="Name"><%= @process.name %></:item>
+    <:item title="Description"><%= @process.description %></:item>
+    <:item title="Status"><.tag status={@process.status} /></:item>
+  </.list>
+
+  <.back navigate={~p"/processes"}>Back to processes</.back>
+
+  <.modal
+    :if={@live_action == :edit}
+    id="process-modal"
+    show
+    on_cancel={JS.patch(~p"/processes/#{@process}")}
+  >
+    <.live_component
+      module={DiagrammeditorWeb.ProcessLive.FormComponent}
+      id={@process.id}
+      title={@page_title}
+      action={@live_action}
+      process={@process}
+      current_user={@current_user}
+      patch={~p"/processes/#{@process}"}
+    />
+  </.modal>
+</.card>

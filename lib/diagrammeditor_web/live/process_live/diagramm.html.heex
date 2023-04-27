@@ -1,0 +1,135 @@
+<.flowchart id="flowchart" hook="Flowchart">
+  <:header>
+    <div class="flex bg-white align-middle border-b-2 border-gray-200 px-3 py-4">
+      <div class="self-center">
+        <.link
+          navigate={~p"/processes"}
+          class="text-large font-semibold text-zinc-900 hover:text-brand"
+        >
+          <.icon name="hero-arrow-left-solid" class="w-6 h-6" />
+          <span class="relative top-px"><%= gettext("Back to processes") %></span>
+        </.link>
+      </div>
+      <div class="flex-auto text-center self-center">
+        <span class="text-brand font-semibold text-xl"><%= @process.name %></span>
+      </div>
+      <.flowchart_header_action class="mx-2 " id="process-reset" kind="ghost">
+        <%= gettext("Reset") %>
+      </.flowchart_header_action>
+      <.flowchart_header_action class="mx-2" id="process-save-all">
+        <%= gettext("Save") %>
+      </.flowchart_header_action>
+      <.flowchart_header_action class="mx-2" id="process-save-all-and-close">
+        <%= gettext("Save and Quit") %>
+      </.flowchart_header_action>
+    </div>
+  </:header>
+  <:nodes>
+    <.flowchart_node
+      id="process"
+      class="flowchart__sidebar-element flowchart__sidebar-element--first"
+      label={gettext("Teilprozess")}
+      inputs={1}
+      outputs={1}
+      data_node="process"
+    >
+      <div class="flex flex-col h-full">
+        <div class="flex-none h-9 border-b-2 text-center font-semibold border-gray-200 text-large w-full ">
+          <div class="flowchart__element-process__header mt-1">Teilprozess</div>
+        </div>
+        <div class="flowchart__element-process__description sr-only">Description</div>
+        <div class="border-b-2 flex justify-end items-end grow">
+          <.button
+            phx-click={show_modal("process-modal")}
+            class="flowchart__element-process__button mr-1.5 mb-1.5 bg-transparent text-gray-500 border-2 border-gray-300 text-sm px-1 py-1 hover:bg-transparent hover:border-2 hover:border-brand hover:text-brand"
+            id="process-add"
+          >
+            <.icon name="hero-plus-solid" class="w-6 h-6 flowchart__element-process__button-icon" /> <%= gettext(
+              "Details"
+            ) %>
+          </.button>
+        </div>
+        <div class="bg-gray-200 flex-none h-9 text-center">
+          <div class="flowchart__element-process__footer mt-1"><%= @process.name %></div>
+        </div>
+      </div>
+    </.flowchart_node>
+    <.flowchart_node
+      id="starting-point"
+      class="flowchart__sidebar-element"
+      label={gettext("Startpunkt")}
+      inputs={0}
+      outputs={1}
+      data_node="starting-point"
+    >
+    </.flowchart_node>
+    <.flowchart_node
+      id="ending-point"
+      class="flowchart__sidebar-element"
+      label={gettext("Endpunkt")}
+      inputs={1}
+      outputs={0}
+      data_node="ending-point"
+    >
+    </.flowchart_node>
+    <.flowchart_node
+      id="uml-or"
+      class="flowchart__sidebar-element"
+      label={gettext("Oder-Verbinder")}
+      inputs={1}
+      outputs={2}
+      data_node="uml-or"
+    >
+    </.flowchart_node>
+    <.flowchart_node
+      id="uml-and"
+      class="flowchart__sidebar-element"
+      label={gettext("Und-Verbinder")}
+      inputs={2}
+      outputs={1}
+      data_node="uml-and"
+    >
+    </.flowchart_node>
+    <.flowchart_node
+      id="uml-if"
+      class="flowchart__sidebar-element"
+      label={gettext("Abfrage-Verbinder")}
+      inputs={1}
+      outputs={3}
+      data_node="uml-if"
+    >
+    </.flowchart_node>
+    <.flowchart_node
+      id="uml-text"
+      class="flowchart__sidebar-element"
+      label={gettext("Text-Element")}
+      inputs={0}
+      outputs={0}
+      data_node="uml-text"
+    >
+      <input type="text" placeholder="Text" df-text class="uml-text__name" />
+    </.flowchart_node>
+  </:nodes>
+  <.modal id="process-modal" show={false} on_cancel={hide_modal("process-modal")}>
+    <div>
+      <.header>
+        <%= gettext("Process") %>
+        <:subtitle>Use this form to manage process records in your database.</:subtitle>
+      </.header>
+
+      <.simple_form for={@form} id="process-form">
+        <.input field={@form[:name]} type="text" label="Name" id="process__name" />
+        <.input
+          field={@form[:description]}
+          type="textarea"
+          id="process__description"
+          label="Description"
+        />
+      </.simple_form>
+      <.button class="mt-6 process__save" phx-click={hide_modal("process-modal")}>
+        Save Process
+      </.button>
+    </div>
+  </.modal>
+  <.flowchart_canvas />
+</.flowchart>

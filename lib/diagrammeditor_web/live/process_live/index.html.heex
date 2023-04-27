@@ -1,0 +1,54 @@
+<.card>
+  <.header>
+    Listing Processes
+    <:actions>
+      <.link patch={~p"/processes/new"}>
+        <.button>New Process</.button>
+      </.link>
+    </:actions>
+  </.header>
+
+  <.table
+    id="processes"
+    rows={@streams.processes}
+    row_click={fn {_id, process} -> JS.navigate(~p"/processes/#{process}") end}
+  >
+    <:col :let={{_id, process}} label="Name"><%= process.name %></:col>
+    <:col :let={{_id, process}} label="Description"><%= process.description %></:col>
+    <:col :let={{_id, process}} label="Status"><.tag status={process.status} /></:col>
+    <:action :let={{_id, process}}>
+      <.link navigate={~p"/processes/#{process}/diagramm"}>Diagram</.link>
+    </:action>
+    <:action :let={{_id, process}}>
+      <div class="sr-only">
+        <.link navigate={~p"/processes/#{process}"}>Show</.link>
+      </div>
+      <.link patch={~p"/processes/#{process}/edit"}>Edit</.link>
+    </:action>
+    <:action :let={{id, process}}>
+      <.link
+        phx-click={JS.push("delete", value: %{id: process.id}) |> hide("##{id}")}
+        data-confirm="Are you sure?"
+      >
+        Delete
+      </.link>
+    </:action>
+  </.table>
+
+  <.modal
+    :if={@live_action in [:new, :edit]}
+    id="process-modal"
+    show
+    on_cancel={JS.navigate(~p"/processes")}
+  >
+    <.live_component
+      module={DiagrammeditorWeb.ProcessLive.FormComponent}
+      id={@process.id || :new}
+      title={@page_title}
+      action={@live_action}
+      process={@process}
+      current_user={@current_user}
+      patch={~p"/processes"}
+    />
+  </.modal>
+</.card>
